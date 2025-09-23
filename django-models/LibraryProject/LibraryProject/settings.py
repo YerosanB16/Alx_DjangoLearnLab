@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bookshelf',  # your app
-    # 'relationship_app' if you have it
+    
+    # Add your app here:
+    'relationship_app',
 ]
+
 
 
 MIDDLEWARE = [
