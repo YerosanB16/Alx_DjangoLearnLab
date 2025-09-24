@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView
-from .models import Author, Book, Library, Librarian
+from .models import Author, Book, Library, Librarian  # <-- Make sure Library is here
+
 
 # Function-based views
 def home(request):
