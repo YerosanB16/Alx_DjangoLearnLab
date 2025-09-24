@@ -1,6 +1,7 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
+from django.contrib.auth.models import User
 from .models import Author, Book
 
 class BookAPITestCase(APITestCase):
@@ -10,22 +11,31 @@ class BookAPITestCase(APITestCase):
         self.list_url = reverse('book-list-create')
         self.detail_url = reverse('book-detail', kwargs={'pk': self.book.id})
 
+        # ✅ Create a test user
+        self.user = User.objects.create_user(username="testuser", password="testpass")
+
     def test_list_books(self):
         response = self.client.get(self.list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
 
-    def test_create_book(self):
+    def test_create_book_authenticated(self):
+        # ✅ Login before creating
+        self.client.login(username="testuser", password="testpass")
         data = {"title": "New Book", "publication_year": 2022, "author": self.author.id}
         response = self.client.post(self.list_url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_update_book(self):
+    def test_update_book_authenticated(self):
+        # ✅ Login before updating
+        self.client.login(username="testuser", password="testpass")
         data = {"title": "Updated Book", "publication_year": 2021, "author": self.author.id}
         response = self.client.put(self.detail_url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['title'], "Updated Book")
 
-    def test_delete_book(self):
+    def test_delete_book_authenticated(self):
+        # ✅ Login before deleting
+        self.client.login(username="testuser", password="testpass")
         response = self.client.delete(self.detail_url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
