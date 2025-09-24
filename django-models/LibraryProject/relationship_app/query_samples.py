@@ -18,7 +18,7 @@ def list_books_by_author(author_name):
     Returns all books written by a specific author.
     """
     author = Author.objects.get(name=author_name)
-    return author.books.all()  # related_name='books' in Book model
+    return Book.objects.filter(author=author)  # Use objects.filter(author=author)
 
 # -------------------------------
 # 3. Retrieve the librarian for a library
@@ -28,4 +28,4 @@ def get_librarian_for_library(library_name):
     Returns the librarian assigned to a specific library.
     """
     library = Library.objects.get(name=library_name)
-    return library.librarian  # OneToOneField in Librarian model
+    return Librarian.objects.get(library=library)  # Use objects.get(library=library)
