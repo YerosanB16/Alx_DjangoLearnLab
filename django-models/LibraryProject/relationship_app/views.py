@@ -8,6 +8,7 @@ from .models import Author, Book, Library, Librarian, UserProfile
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import redirect
+
 # Function-based views
 def home(request):
     authors = Author.objects.all()
