@@ -1,3 +1,5 @@
+from .models import Library
+
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView
 from .models import Author, Book, Library, Librarian, UserProfile  # explicitly include all models
