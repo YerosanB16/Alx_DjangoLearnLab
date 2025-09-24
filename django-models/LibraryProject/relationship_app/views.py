@@ -6,7 +6,8 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import Author, Book, Library, Librarian, UserProfile
 from django.contrib.auth.decorators import user_passes_test
-
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import redirect
 # Function-based views
 def home(request):
     authors = Author.objects.all()
@@ -91,3 +92,22 @@ def librarian_view(request):
 @user_passes_test(is_member)
 def member_view(request):
     return render(request, "relationship_app/member_view.html")
+
+
+
+
+
+@permission_required('relationship_app.can_add_book', raise_exception=True)
+def add_book_view(request):
+    # Your logic to add a book
+    pass
+
+@permission_required('relationship_app.can_change_book', raise_exception=True)
+def edit_book_view(request, book_id):
+    # Your logic to edit a book
+    pass
+
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book_view(request, book_id):
+    # Your logic to delete a book
+    pass
