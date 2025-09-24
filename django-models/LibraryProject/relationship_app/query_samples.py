@@ -1,15 +1,31 @@
 from .models import Author, Book, Library, Librarian
 
-def sample_queries():
-    # Query all books by a specific author
-    author = Author.objects.first()
-    books_by_author = Book.objects.filter(author=author)
+# -------------------------------
+# 1. List all books in a library
+# -------------------------------
+def list_books_in_library(library_name):
+    """
+    Returns all books in a given library by name.
+    """
+    library = Library.objects.get(name=library_name)
+    return library.books.all()
 
-    # List all books in a library
-    library = Library.objects.first()
-    books_in_library = library.books.all() if library else []
+# -------------------------------
+# 2. Query all books by a specific author
+# -------------------------------
+def list_books_by_author(author_name):
+    """
+    Returns all books written by a specific author.
+    """
+    author = Author.objects.get(name=author_name)
+    return author.books.all()  # related_name='books' in Book model
 
-    # Retrieve the librarian for a library
-    librarian = Librarian.objects.filter(library=library).first() if library else None
-
-    return books_by_author, books_in_library, librarian
+# -------------------------------
+# 3. Retrieve the librarian for a library
+# -------------------------------
+def get_librarian_for_library(library_name):
+    """
+    Returns the librarian assigned to a specific library.
+    """
+    library = Library.objects.get(name=library_name)
+    return library.librarian  # OneToOneField in Librarian model
