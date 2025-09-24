@@ -1,3 +1,30 @@
-<h1>Welcome to Library Project</h1>
-<a href="{% url 'register' %}">Register</a> | 
-<a href="{% url 'login' %}">Login</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Home</title>
+</head>
+<body>
+    <h1>Library Management</h1>
+
+    <h2>Authors</h2>
+    <ul>
+        {% for author in authors %}
+            <li>{{ author.name }} ({{ author.birth_year }})</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Books</h2>
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }} - {{ book.author.name }} ({{ book.publication_year }})</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Libraries</h2>
+    <ul>
+        {% for library in libraries %}
+            <li>{{ library.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
