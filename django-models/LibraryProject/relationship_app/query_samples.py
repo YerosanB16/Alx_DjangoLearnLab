@@ -1,12 +1,15 @@
-from .models import Author, Book, Library
+from .models import Author, Book, Library, Librarian
 
-# All books by a specific author
-author = Author.objects.first()
-books_by_author = Book.objects.filter(author=author)
+def sample_queries():
+    # Query all books by a specific author
+    author = Author.objects.first()
+    books_by_author = Book.objects.filter(author=author)
 
-# All books in a library
-library = Library.objects.first()
-library_books = library.books.all()
+    # List all books in a library
+    library = Library.objects.first()
+    books_in_library = library.books.all() if library else []
 
-# Librarian for a library
-librarian = library.librarian
+    # Retrieve the librarian for a library
+    librarian = Librarian.objects.filter(library=library).first() if library else None
+
+    return books_by_author, books_in_library, librarian
